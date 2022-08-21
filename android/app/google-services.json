@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "696573995920",
+    "project_id": "beme-twitter",
+    "storage_bucket": "beme-twitter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696573995920:android:2886d70a371059fc896115",
+        "android_client_info": {
+          "package_name": "com.bemetwitter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "696573995920-4vgocr57rpg505k4bef2vl3p6kusfkus.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bemetwitter",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "696573995920-o2bcusgi01g63ji35lbc4p48ou6t1ghg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD16qsidu0R-erOY3niRebOD-M1AfpWt8c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "696573995920-o2bcusgi01g63ji35lbc4p48ou6t1ghg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

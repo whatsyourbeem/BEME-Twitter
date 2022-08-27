@@ -3,6 +3,7 @@ import { StyleSheet, SafeAreaView } from 'react-native';
 
 import { SplashScreen } from './src/screens/SplashScreen';
 import { MainScreen } from './src/screens/MainScreen';
+import { AuthScreen } from './src/screens/AuthScreen';
 
 // React-Native의 기본 태그 설명!
 // SafeAreaView: iOS에서, 화면이 노치 영역까지 침범하지 않도록 감싸주는 역할을 해요.
@@ -12,10 +13,15 @@ import { MainScreen } from './src/screens/MainScreen';
 
 const App = () => {
   const [showSplashScreen, setShowSplashScreen] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(()=>{
     setTimeout(()=>{setShowSplashScreen(false)}, 1500);
   },[]);
+
+  const onSignIn = () => {
+    setIsAuthenticated(true);
+  }
 
   return (
     <SafeAreaView>
@@ -23,40 +29,14 @@ const App = () => {
         showSplashScreen ?
           <SplashScreen />
           :
-          <MainScreen />
-      }      
+          isAuthenticated ?
+            <MainScreen />
+            :
+            <AuthScreen onSignIn={onSignIn} />
+      }
     </SafeAreaView>
   );
 };
 
 
 export default App;
-
-// 디자인을 추가하고 싶을 땐 아래와 같이 사용해요. (우리가 보통 CSS라고 불리는 문법과 동일해요.)
-// 사용할 수 있는 스타일 요소는 여기를 참고하면 돼요. https://reactnative.dev/docs/text-style-props
-const styles = StyleSheet.create({
-  flexContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#1DA1F2',
-  },
-  flexItem: {
-    display: 'flex',
-    marginTop: 10,
-    marginBottom: 10,
-  },
-  logoImage: {
-    width: 50,
-    height: 50,
-    resizeMode: 'contain',
-  },
-  logoText: {
-    color: 'white',
-    fontSize: 18,
-    textAlign: 'center',
-  }
-})

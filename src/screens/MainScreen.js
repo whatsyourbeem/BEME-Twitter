@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { TopBar } from '../components/TopBar';
 import { TweetFlatList } from '../components/TweetFlatList';
 import { CreateTweetModal } from './CreateTweetModal';
+import { SettingsModal } from './SettingsModal';
 
 // React-Native의 기본 태그 설명!
 // View: 모든 UI의 기본 단위에요.
@@ -11,26 +12,35 @@ import { CreateTweetModal } from './CreateTweetModal';
 // Image: 이미지는 표시할 수 있어요. (source 속성을 통해 이미지 입력)
 
 export const MainScreen = () => {
-  const [showCreateTweetModal, setShowCreateTweetModal] = useState(false);
+  const [openCreateTweetModal, setOpenCreateTweetModal] = useState(false);
+  const [openSettingsModal, setOpenSettingsModal] = useState(false);
 
-  const onShowCreateTweetModal = () => {
-    setShowCreateTweetModal(true);
+  const onOpenCreateTweetModal = () => {
+    setOpenCreateTweetModal(true);
   }
   const onCloseCreateTweetModal = () => {
-    setShowCreateTweetModal(false);
+    setOpenCreateTweetModal(false);
+  }
+  const onOpenSettingsModal = () => {
+    setOpenSettingsModal(true);
+  }
+  const onCloseSettingsModal = () => {
+    setOpenSettingsModal(false);
   }
 
   return (
     <View style={styles.container}>
       <View style={styles.topbar}>
         <TopBar
-          onPressCreateBtn={onShowCreateTweetModal}
+          onPressCreateBtn={onOpenCreateTweetModal}
+          onPressProfileBtn={onOpenSettingsModal}
         />
       </View>
       <View style={styles.tweet}>
         <TweetFlatList />
       </View>
-      <CreateTweetModal visible={showCreateTweetModal} onClose={onCloseCreateTweetModal} />
+      <CreateTweetModal visible={openCreateTweetModal} onClose={onCloseCreateTweetModal} />
+      <SettingsModal visible={openSettingsModal} onClose={onCloseSettingsModal} />
     </View>
   );
 };

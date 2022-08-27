@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, SafeAreaView, View, Text, Image } from 'react-native';
+import { StyleSheet, SafeAreaView } from 'react-native';
 
 import { SplashScreen } from './src/screens/SplashScreen';
 import { MainScreen } from './src/screens/MainScreen';

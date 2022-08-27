@@ -1,8 +1,9 @@
-import React from 'react';
-import { StyleSheet, View, FlatList, ActivityIndicator } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 
 import { TopBar } from '../components/TopBar';
 import { TweetFlatList } from '../components/TweetFlatList';
+import { CreateTweetModal } from './CreateTweetModal';
 
 // React-Native의 기본 태그 설명!
 // View: 모든 UI의 기본 단위에요.
@@ -10,14 +11,26 @@ import { TweetFlatList } from '../components/TweetFlatList';
 // Image: 이미지는 표시할 수 있어요. (source 속성을 통해 이미지 입력)
 
 export const MainScreen = () => {
+  const [showCreateTweetModal, setShowCreateTweetModal] = useState(false);
+
+  const onShowCreateTweetModal = () => {
+    setShowCreateTweetModal(true);
+  }
+  const onCloseCreateTweetModal = () => {
+    setShowCreateTweetModal(false);
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.topbar}>
-        <TopBar />
+        <TopBar
+          onPressCreateBtn={onShowCreateTweetModal}
+        />
       </View>
       <View style={styles.tweet}>
         <TweetFlatList />
       </View>
+      <CreateTweetModal visible={showCreateTweetModal} onClose={onCloseCreateTweetModal} />
     </View>
   );
 };
@@ -26,7 +39,7 @@ export const MainScreen = () => {
 // 디자인을 추가하고 싶을 땐 아래와 같이 사용해요. (우리가 보통 CSS라고 불리는 문법과 동일해요.)
 // 사용할 수 있는 스타일 요소는 여기를 참고하면 돼요. https://reactnative.dev/docs/text-style-props
 const styles = StyleSheet.create({
-    container: {
+  container: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',

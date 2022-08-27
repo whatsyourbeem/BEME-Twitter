@@ -2,8 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import LOGO from '../assets/logo_color.png';
 import TEXT_LOGO from '../assets/logo_text.png';
-import CREATE_LOGO from '../assets/add.png';
-import SETTING_LOGO from '../assets/setting.png';
+import CREATE_LOGO from '../assets/plus.png';
 
 import { MyProfile } from '../mocks/Data';
 
@@ -12,7 +11,7 @@ import { MyProfile } from '../mocks/Data';
 // Text: 텍스트를 표시할 수 있어요.
 // Image: 이미지는 표시할 수 있어요. (source 속성을 통해 이미지 입력)
 
-export const TopBar = () => {
+export const TopBar = ({ onPressCreateBtn }) => {
   return (
     <View style={styles.container_TopBar}>
       <View style={styles.item_Logo}>
@@ -21,11 +20,11 @@ export const TopBar = () => {
       <View style={styles.item_TextLogo}>
         <Image source={TEXT_LOGO} style={styles.image_TextLogo} />
       </View>
-      <TouchableOpacity style={styles.touchable_CreateBtn}>
+      <TouchableOpacity
+        onPress={onPressCreateBtn}
+        style={styles.touchable_CreateBtn}
+      >
         <Image source={CREATE_LOGO} style={styles.image_ButtonIcon} />
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.touchable_SettingBtn}>
-        <Image source={SETTING_LOGO} style={styles.image_ButtonIcon} />
       </TouchableOpacity>
       <TouchableOpacity style={styles.touchable_ProfileBtn}>
         <Image source={{uri:MyProfile.picture}} style={styles.image_ProfilePic} />

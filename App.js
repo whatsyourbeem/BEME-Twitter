@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, SafeAreaView } from 'react-native';
+import { View, SafeAreaView } from 'react-native';
 
 import { SplashScreen } from './src/screens/SplashScreen';
 import { MainScreen } from './src/screens/MainScreen';
@@ -24,7 +24,7 @@ const App = () => {
   }
 
   return (
-    <SafeAreaView>
+    <View>
       {
         showSplashScreen ?
           <SplashScreen />
@@ -34,7 +34,7 @@ const App = () => {
             :
             <AuthScreen onSignIn={onSignIn} />
       }
-    </SafeAreaView>
+    </View>
   );
 };
 

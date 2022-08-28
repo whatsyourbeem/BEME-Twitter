@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, SafeAreaView, View } from 'react-native';
 
 import { TopBar } from '../components/TopBar';
 import { TweetFlatList } from '../components/TweetFlatList';
@@ -29,7 +29,7 @@ export const MainScreen = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.topbar}>
         <TopBar
           onPressCreateBtn={onOpenCreateTweetModal}
@@ -41,7 +41,7 @@ export const MainScreen = () => {
       </View>
       <CreateTweetModal visible={openCreateTweetModal} onClose={onCloseCreateTweetModal} />
       <SettingsModal visible={openSettingsModal} onClose={onCloseSettingsModal} />
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Modal, View, TouchableOpacity, Text, Image, TextInput, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Modal, View, TouchableOpacity, Text, Image, SafeAreaView } from 'react-native';
 
 import CLOSE_ICON from '../assets/close.png';
 import PROFILE_ICON from '../assets/user.png';
@@ -16,7 +16,7 @@ export const SettingsModal = ({ visible, onClose }) => {
       onRequestClose={onClose}//Android 뒤로가기 버튼을 누르거나, iOS 쓸어내리기 제스처 수행 시 호출
       presentationStyle={'fullScreen'}//모달의 모양을 결정하는 iOS Only 옵션
     >
-      <View style={styles.container_column}>
+      <SafeAreaView style={styles.container_column}>
         <View style={styles.title_container_row}>
           <View style={{width:40}} />
           <View style={{width:80}}>
@@ -41,7 +41,7 @@ export const SettingsModal = ({ visible, onClose }) => {
             로그아웃
           </Text>
         </TouchableOpacity>
-      </View>
+      </SafeAreaView>
     </Modal>
   );
 }

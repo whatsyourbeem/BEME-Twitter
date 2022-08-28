@@ -11,7 +11,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		53DE0CF228B26DD100101DB1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 53DE0CF128B26DD000101DB1 /* GoogleService-Info.plist */; };
+		538CE79728BB42B7003D909A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 538CE79628BB42B6003D909A /* GoogleService-Info.plist */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		C1BE5EC2545DA43D660D6212 /* Pods_bemetwitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F1DD27715466F6B6291E11 /* Pods_bemetwitter.framework */; };
 		DB46902B59BB8DCD204B9767 /* Pods_bemetwitter_bemetwitterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08152093945454F6A9884B21 /* Pods_bemetwitter_bemetwitterTests.framework */; };
@@ -39,7 +39,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = bemetwitter/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = bemetwitter/main.m; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-bemetwitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bemetwitter.debug.xcconfig"; path = "Target Support Files/Pods-bemetwitter/Pods-bemetwitter.debug.xcconfig"; sourceTree = "<group>"; };
-		53DE0CF128B26DD000101DB1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		538CE79628BB42B6003D909A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		55F1DD27715466F6B6291E11 /* Pods_bemetwitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bemetwitter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5709B34CF0A7D63546082F79 /* Pods-bemetwitter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bemetwitter.release.xcconfig"; path = "Target Support Files/Pods-bemetwitter/Pods-bemetwitter.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-bemetwitter-bemetwitterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bemetwitter-bemetwitterTests.debug.xcconfig"; path = "Target Support Files/Pods-bemetwitter-bemetwitterTests/Pods-bemetwitter-bemetwitterTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -118,7 +118,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				53DE0CF128B26DD000101DB1 /* GoogleService-Info.plist */,
+				538CE79628BB42B6003D909A /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* bemetwitter */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* bemetwitterTests */,
@@ -245,8 +245,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				538CE79728BB42B7003D909A /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				53DE0CF228B26DD100101DB1 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

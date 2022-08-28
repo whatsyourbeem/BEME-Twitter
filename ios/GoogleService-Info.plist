@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>696573995920-kc8s0slg7t2bqbpaonfo93u5v333ll01.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.696573995920-kc8s0slg7t2bqbpaonfo93u5v333ll01</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>696573995920-4vgocr57rpg505k4bef2vl3p6kusfkus.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyABzXbs3e_bX2go7ZKUBnFVztRahh3su_4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>696573995920</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>org.beem.bemetwitter</string>
+	<key>PROJECT_ID</key>
+	<string>beme-twitter</string>
+	<key>STORAGE_BUCKET</key>
+	<string>beme-twitter.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:696573995920:ios:246d520cd31ec501896115</string>
+</dict>
+</plist>

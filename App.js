@@ -19,7 +19,7 @@ const App = () => {
     setTimeout(()=>{setShowSplashScreen(false)}, 1500);
   },[]);
 
-  const onSignIn = () => {
+  const onAuthenticate = () => {
     setIsAuthenticated(true);
   }
 
@@ -32,7 +32,7 @@ const App = () => {
           isAuthenticated ?
             <MainScreen />
             :
-            <AuthScreen onSignIn={onSignIn} />
+            <AuthScreen onAuthenticate={onAuthenticate} />
       }
     </View>
   );

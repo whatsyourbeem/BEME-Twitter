@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import { useDispatch } from 'react-redux'
+import { authenticate, setProfile } from '../redux/reducer/AuthReducer';
 
 import { SignInModal } from './SignInModal';
 import { SignUpModal } from './SignUpModal';
@@ -9,7 +11,9 @@ import * as AuthFunctions from '../functions/AuthFunctions'
 import LOGO from '../assets/logo_white.png'
 import EMAIL_ICON from '../assets/email.png'
 
-export const AuthScreen = ({ onAuthenticate }) => {
+export const AuthScreen = () => {
+  const dispatch = useDispatch();
+
   const [openSignInModal, setOpenSignInModal] = useState(false);
   const [openSignUpModal, setOpenSignUpModal] = useState(false);
 
@@ -30,7 +34,8 @@ export const AuthScreen = ({ onAuthenticate }) => {
     setOpenSignInModal(false);
     const res = await AuthFunctions.signIn(id,password);
     if(res.success){
-      onAuthenticate();
+      dispatch(authenticate());
+      dispatch(setProfile(res));
     } else{
       setOpenSignInModal(true);
     }
@@ -38,7 +43,11 @@ export const AuthScreen = ({ onAuthenticate }) => {
   const onSignUp = async (id,password,nickname,username) => {
     const res = await AuthFunctions.signUp(id,password,nickname,username);
     if(res.success){
-      onAuthenticate();
+      dispatch(authenticate());
+      dispatch(setProfile({
+        nickname: nickname,
+        username: username,
+      }));
     }
   }
 

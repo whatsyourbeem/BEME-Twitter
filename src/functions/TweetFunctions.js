@@ -19,3 +19,15 @@ export const createTweet = async (id, contents) => {
     return {success:false}
   }
 }
+
+export const readTweet = async (number) => {
+  let response;
+  if(number){
+    response = await fetch('https://asia-northeast1-beme-twitter.cloudfunctions.net/readTweet?limit='+String(number));
+  } else{
+    console.log('all')
+    response = await fetch('https://asia-northeast1-beme-twitter.cloudfunctions.net/readTweet');
+  }
+  const responseBody = await response.json()
+  return responseBody;
+}

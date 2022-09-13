@@ -1,25 +1,46 @@
-import React, { useState } from 'react';
-import { StyleSheet, SafeAreaView, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, SafeAreaView, View, FlatList, ActivityIndicator } from 'react-native';
 
 import { TopBar } from '../components/TopBar';
-import { TweetFlatList } from '../components/TweetFlatList';
+import { TweetItem } from '../components/TweetItem';
+import { readTweet } from '../functions/TweetFunctions';
 import { CreateTweetModal } from './CreateTweetModal';
 import { SettingsModal } from './SettingsModal';
-
-// React-Native의 기본 태그 설명!
-// View: 모든 UI의 기본 단위에요.
-// Text: 텍스트를 표시할 수 있어요.
-// Image: 이미지는 표시할 수 있어요. (source 속성을 통해 이미지 입력)
 
 export const MainScreen = () => {
   const [openCreateTweetModal, setOpenCreateTweetModal] = useState(false);
   const [openSettingsModal, setOpenSettingsModal] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const [tweets, setTweets] = useState([]);
+
+  useEffect(() => {
+    onInitialLoad();
+  }, []);
+
+  const onInitialLoad = async () => {
+    setInitialLoading(true);
+    const response = await readTweet();
+    setTweets(response.tweet);
+    setInitialLoading(false);
+  }
+  const onRefresh = async () => {
+    setRefreshing(true);
+    const response = await readTweet();
+    setTweets(response.tweet);
+    setRefreshing(false);
+  }
+  
+  const renderItem = ({item}) => (
+    <TweetItem tweet={item} />
+  )
 
   const onOpenCreateTweetModal = () => {
     setOpenCreateTweetModal(true);
   }
   const onCloseCreateTweetModal = () => {
     setOpenCreateTweetModal(false);
+    onRefresh();
   }
   const onOpenSettingsModal = () => {
     setOpenSettingsModal(true);
@@ -36,8 +57,17 @@ export const MainScreen = () => {
           onPressProfileBtn={onOpenSettingsModal}
         />
       </View>
-      <View style={styles.tweet}>
-        <TweetFlatList />
+      <View style={styles.container}>
+        <FlatList
+          data={tweets}
+          renderItem={renderItem}
+          keyExtractor={(item) => String(item.id)}
+          numColumns={1}
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          ListFooterComponent={(initialLoading) && <ActivityIndicator />}
+          style={styles.flatlist}
+        />
       </View>
       <CreateTweetModal visible={openCreateTweetModal} onClose={onCloseCreateTweetModal} />
       <SettingsModal visible={openSettingsModal} onClose={onCloseSettingsModal} />
@@ -75,5 +105,8 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 18,
     textAlign: 'center',
+  },
+  flatlist: {
+    width: '100%',
   }
 })

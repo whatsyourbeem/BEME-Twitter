@@ -1,10 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+import { useSelector } from 'react-redux'
 import LOGO from '../assets/logo_color.png';
 import TEXT_ICON from '../assets/logo_text.png';
 import CREATE_ICON from '../assets/plus.png';
-
-import { MyProfile } from '../mocks/Data';
 
 // React-Native의 기본 태그 설명!
 // View: 모든 UI의 기본 단위에요.
@@ -12,6 +11,8 @@ import { MyProfile } from '../mocks/Data';
 // Image: 이미지는 표시할 수 있어요. (source 속성을 통해 이미지 입력)
 
 export const TopBar = ({ onPressCreateBtn, onPressProfileBtn }) => {
+  const profile = useSelector((state) => state.auth.profile);
+
   return (
     <View style={styles.container_TopBar}>
       <View style={styles.item_Logo}>
@@ -23,8 +24,8 @@ export const TopBar = ({ onPressCreateBtn, onPressProfileBtn }) => {
       <TouchableOpacity onPress={onPressCreateBtn} style={styles.touchable_CreateBtn}>
         <Image source={CREATE_ICON} style={styles.image_ButtonIcon} />
       </TouchableOpacity>
-      <TouchableOpacity onPress={onPressProfileBtn} style={styles.touchable_ProfileBtn}>
-        <Image source={{uri:MyProfile.picture}} style={styles.image_ProfilePic} />
+      <TouchableOpacity onPress={(onPressProfileBtn)} style={styles.touchable_ProfileBtn}>
+        <Image source={{uri:profile.profileImage}} style={styles.image_ProfilePic} />
       </TouchableOpacity>
     </View>
   );

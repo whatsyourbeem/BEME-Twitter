@@ -1,14 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Modal, View, TouchableOpacity, Text, Image, SafeAreaView } from 'react-native';
+import { useDispatch } from 'react-redux'
+import { authenticate, setProfile } from '../redux/reducer/AuthReducer';
 
+import { ProfileEditModal } from './ProfileEditModal';
 import CLOSE_ICON from '../assets/close.png';
 import PROFILE_ICON from '../assets/user.png';
 import SIGNOUT_ICON from '../assets/logout.png';
 
-import { MyProfile } from '../mocks/Data';
-
 export const SettingsModal = ({ visible, onClose }) => {
+  const dispatch = useDispatch();
+  const [openProfileEditModal, setOpenProfileEditModal] = useState(false);
 
+  const onOpenProfileEditModal = () => {
+    setOpenProfileEditModal(true);
+  }
+  const onCloseProfileEditModal = () => {
+    setOpenProfileEditModal(false);
+  }
+  const onLogout = () => {
+    dispatch(authenticate(false));
+    dispatch(setProfile({}));
+  }
   return(
     <Modal
       visible={visible}
@@ -29,19 +42,20 @@ export const SettingsModal = ({ visible, onClose }) => {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.menuitem_container_row}>
+        <TouchableOpacity onPress={onOpenProfileEditModal} style={styles.menuitem_container_row}>
           <Image source={PROFILE_ICON} style={styles.image_menu}/>
           <Text style={styles.text_menu}>
             프로필 수정
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.menuitem_container_row}>
+        <TouchableOpacity onPress={onLogout} style={styles.menuitem_container_row}>
           <Image source={SIGNOUT_ICON} style={styles.image_menu}/>
           <Text style={styles.text_menu}>
             로그아웃
           </Text>
         </TouchableOpacity>
       </SafeAreaView>
+      <ProfileEditModal visible={openProfileEditModal} onClose={onCloseProfileEditModal} />
     </Modal>
   );
 }

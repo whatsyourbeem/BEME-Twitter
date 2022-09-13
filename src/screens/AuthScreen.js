@@ -32,22 +32,23 @@ export const AuthScreen = () => {
 
   const onSignIn = async (id, password) => {
     setOpenSignInModal(false);
-    const res = await AuthFunctions.signIn(id,password);
-    if(res.success){
-      dispatch(authenticate());
-      dispatch(setProfile(res));
+    const response = await AuthFunctions.signIn(id,password);
+    if(response.success){
+      dispatch(authenticate(true));
+      dispatch(setProfile(response.user));
+      console.log(response.user)
     } else{
       setOpenSignInModal(true);
     }
   }
   const onSignUp = async (id,password,nickname,username) => {
-    const res = await AuthFunctions.signUp(id,password,nickname,username);
-    if(res.success){
-      dispatch(authenticate());
-      dispatch(setProfile({
-        nickname: nickname,
-        username: username,
-      }));
+    const response = await AuthFunctions.signUp(id,password,nickname,username);
+    if(response.success){
+      dispatch(authenticate(true));
+      dispatch(setProfile(response.user));
+      console.log(response.user)
+    } else{
+      setOpenSignInModal(true);
     }
   }
 

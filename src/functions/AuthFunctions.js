@@ -43,3 +43,28 @@ export const signIn = async (id, password) => {
     return {success:false}
   }
 }
+
+export const updateUser = async (id, username, nickname) => {
+  try{
+    const response = await fetch(
+      'https://asia-northeast1-beme-twitter.cloudfunctions.net/updateUser',
+      {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: id,
+          data: {
+            username: username,
+            nickname: nickname,
+          }
+        })
+      }
+    );
+    const responseBody = await response.json()
+    return responseBody;
+  } catch{
+    return {success:false}
+  }
+}

@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Modal, View, TouchableOpacity, Text, Image, TextInput, KeyboardAvoidingView } from 'react-native';
+import { useSelector } from 'react-redux'
 
-import { MyProfile } from '../mocks/Data';
+import { createTweet } from '../functions/TweetFunctions';
 
 export const CreateTweetModal = ({ visible, onClose }) => {
+  const profile = useSelector((state) => state.auth.profile);
+  const [contents, setContents] = useState('');
+
+  const onCreateTweet = async () => {
+    await createTweet(profile.id, contents);
+    onClose();
+  }
 
   return(
     <Modal
@@ -19,7 +27,7 @@ export const CreateTweetModal = ({ visible, onClose }) => {
               취소
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={onClose} style={styles.tweet_btn}>
+          <TouchableOpacity onPress={onCreateTweet} style={styles.tweet_btn}>
             <Text style={{ color:'white', fontWeight:'bold', fontSize:16, marginLeft:4, marginRight:4 }}>
               트윗
             </Text>
@@ -28,10 +36,16 @@ export const CreateTweetModal = ({ visible, onClose }) => {
         
         <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={60} style={{flexGrow:1, display:'flex', flexDirection:'row', marginRight:20}}>
           <View style={{marginLeft:20, marginRight:20}}>
-            <Image source={{uri:MyProfile.picture}} style={{ width:40, height:40, borderRadius:40,}} />
+            <Image source={{uri:profile.profileImage}} style={{ width:40, height:40, borderRadius:40,}} />
           </View>
           <View style={{flexGrow:1}}>
-            <TextInput multiline={true} placeholder='무슨 일이 일어나고 있나요?' textAlignVertical='top' style={styles.textInput} />
+            <TextInput
+              multiline={true}
+              placeholder='무슨 일이 일어나고 있나요?'
+              textAlignVertical='top'
+              style={styles.textInput}
+              onChangeText={(text)=>{setContents(text)}}
+            />
           </View>
         </KeyboardAvoidingView>
       </View>

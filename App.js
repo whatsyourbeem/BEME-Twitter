@@ -7,7 +7,7 @@ import { MainScreen } from './src/screens/MainScreen';
 import { AuthScreen } from './src/screens/AuthScreen';
 
 const App = () => {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const [showSplashScreen, setShowSplashScreen] = useState(true);
 
   useEffect(()=>{

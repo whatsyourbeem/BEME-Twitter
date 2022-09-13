@@ -13,8 +13,8 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    authenticate: (state) => {
-      state.isAuthenticated = true;
+    authenticate: (state, action) => {
+      state.isAuthenticated = action.payload;
     },
     setProfile: (state, action) => {
       state.profile = action.payload;

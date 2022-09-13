@@ -1,10 +1,3 @@
-export const MyProfile = {
-  uuid: 'abcdefg',
-  id: 'from_jhyun',
-  nickname: '제이현',
-  picture: 'https://booksarebucket.s3.ap-northeast-2.amazonaws.com/beem_profile_pics/JHyun.jpeg',
-}
-
 export const Tweets = [
   {
     id: 1,

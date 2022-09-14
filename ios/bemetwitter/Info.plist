@@ -35,6 +35,10 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>사진 업로드를 위해 카메라 권한을 허용합니다.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>사진 업로드를 위해 사진첩 권한을 허용합니다.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>UILaunchStoryboardName</key>

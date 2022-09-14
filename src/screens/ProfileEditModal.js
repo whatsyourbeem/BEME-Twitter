@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Modal, View, TouchableOpacity, Text, TextInput, Image } from 'react-native';
+import ImagePicker from 'react-native-image-crop-picker';
 import { useSelector, useDispatch } from 'react-redux'
 import { setProfile } from '../redux/reducer/AuthReducer';
 
@@ -9,16 +10,45 @@ export const ProfileEditModal = ({ visible, onClose }) => {
   const profile = useSelector((state) => state.auth.profile);
   const dispatch = useDispatch();
   const [profileImage, setProfileImage] = useState(profile.profileImage);
+  const [newProfileImageBase64, setNewProfileImageBase64] = useState(null);
   const [nickname, setNickname] = useState(profile.nickname);
   const [username, setUsername] = useState(profile.username);
 
   const onConfirm = async () => {
-    const response = await updateUser(profile.id, username, nickname);
+    let data;
+    if(newProfileImageBase64){
+      console.log('new!')
+      data = {
+        username: username,
+        nickname: nickname,
+        profileImage: newProfileImageBase64,
+      }
+    } else{
+      data = {
+        username: username,
+        nickname: nickname,
+      }
+    }
+    const response = await updateUser(profile.id, data);
     if(response.success){
       dispatch(setProfile(response.user));
       onClose();
       console.log(response.user)
     }
+  }
+
+  const pickImage = async () => {
+    const image = await ImagePicker.openPicker({
+      width: 1000,
+      height: 1000,
+      cropperCircleOverlay: true,
+      cropping: true,
+      cropperChooseText: '확인',
+      cropperCancelText: '취소',
+      includeBase64: true,
+    }); // Picker 취소하면 여기서 함수 return 되어, 이후 과정 진행 없음
+    setProfileImage(image.path);
+    setNewProfileImageBase64(image.data);
   }
 
   return(
@@ -48,7 +78,7 @@ export const ProfileEditModal = ({ visible, onClose }) => {
         </View>
         
         <View style={styles.container_column}>
-          <TouchableOpacity style={{ alignSelf:'center' }}>
+          <TouchableOpacity onPress={pickImage} style={{ alignSelf:'center' }}>
             <Image source={{uri:profileImage}} style={styles.image_ProfilePic} />
           </TouchableOpacity>
           <View style={styles.container_row}>

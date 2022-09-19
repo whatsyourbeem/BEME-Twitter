@@ -25,9 +25,46 @@ export const readTweet = async (number) => {
   if(number){
     response = await fetch('https://asia-northeast1-beme-twitter.cloudfunctions.net/readTweet?limit='+String(number));
   } else{
-    console.log('all')
     response = await fetch('https://asia-northeast1-beme-twitter.cloudfunctions.net/readTweet');
   }
   const responseBody = await response.json()
+  return responseBody;
+}
+
+export const addTweetLike = async (userId, tweetId) => {
+  const response = await fetch(
+    'https://asia-northeast1-beme-twitter.cloudfunctions.net/addTweetLike',
+    {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        clickedUser: userId,
+        tweet: tweetId,
+      })
+    }
+  );
+  const responseBody = await response.json()
+  console.log(responseBody);
+  return responseBody;
+}
+
+export const removeTweetLike = async (userId, tweetId) => {
+  const response = await fetch(
+    'https://asia-northeast1-beme-twitter.cloudfunctions.net/removeTweetLike',
+    {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        clickedUser: userId,
+        tweet: tweetId,
+      })
+    }
+  );
+  const responseBody = await response.json()
+  console.log(responseBody);
   return responseBody;
 }

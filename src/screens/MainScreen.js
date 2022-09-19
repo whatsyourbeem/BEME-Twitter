@@ -32,7 +32,7 @@ export const MainScreen = () => {
   }
   
   const renderItem = ({item}) => (
-    <TweetItem tweet={item} />
+    <TweetItem tweetItem={item} />
   )
 
   const onOpenCreateTweetModal = () => {

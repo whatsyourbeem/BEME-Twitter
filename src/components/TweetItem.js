@@ -1,15 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
+import { useSelector } from 'react-redux'
+
+import { addTweetLike, removeTweetLike } from '../functions/TweetFunctions';
 
 import HEART_DISABLED from '../assets/heart_disabled.png';
 import HEART_ENABLED from '../assets/heart_enabled.png';
 
-export const TweetItem = ({tweet}) => {
+export const TweetItem = ({tweetItem}) => {
+  const profile = useSelector((state) => state.auth.profile);
+  const [tweet, setTweet] = useState(tweetItem);
   const [isLikedTweet, setIsLikedTweet] = useState(false);
 
-  const onPressLikeBtn = () => {
-    setIsLikedTweet(!isLikedTweet);
+  useEffect(() => {
+    console.log('useEffect!!');
+    checkIsLikedTweet();
+  }, [tweet]);
+
+  const checkIsLikedTweet = () => {
+    if(tweet.likedUser.includes(profile.id)){
+      setIsLikedTweet(true);
+    } else{
+      setIsLikedTweet(false);
+    }
   }
+
+  const onPressLikeBtn = async () => {
+    let updatedTweet;
+    if(isLikedTweet){
+      const response = await removeTweetLike(profile.id, tweet.id);
+      updatedTweet = response.tweet;
+    } else{
+      const response = await addTweetLike(profile.id, tweet.id);
+      updatedTweet = response.tweet;
+    }
+    setTweet(updatedTweet);
+  }
+
   const convertTime = (timestamp) => {
     const time = new Date(timestamp*1000);
     return `${time.getFullYear()}.${time.getMonth()+1}.${time.getDate()}`

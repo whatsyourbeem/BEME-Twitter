@@ -1,11 +1,21 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 import { StyleSheet, Modal, View, TouchableOpacity, Text, TextInput, Image } from 'react-native';
 
-export const ProfileEditModal = () => {
+export const ProfileEditModal = (props) => {
+  const [nickname, setNickname] = useState(props.myProfile.nickname);
+  const [username, setUsername] = useState(props.myProfile.username);
+
+  const onUpdateProfile = () => {
+    props.onUpdateProfile(nickname, username);
+  }
+
   return (
     // 모달 <Modal>
-    <Modal visible={true} animationType={'slide'} presentationStyle={'pageSheet'}>
+    <Modal
+      visible={props.visible} //부모(AuthScreen)로부터 전달받은 visible 값(props)을 대입합니다
+      animationType={'slide'}
+      presentationStyle={'pageSheet'}
+    >
 
       {/* 컨테이너 (세로방향) <View> */}
       <View style={styles.container_column}>
@@ -13,7 +23,10 @@ export const ProfileEditModal = () => {
         {/* 컨테이너 (가로방향,메뉴바) <View> */}
         <View style={styles.container_row_menubar}>
           {/* 아이템 <TouchableOpacity> */}
-          <TouchableOpacity style={{ padding:8, marginLeft:10 }}>
+          <TouchableOpacity
+            onPress={props.onClose} //버튼을 누르면 부모로부터 전달받은 onClose 함수(props)를 호출합니다
+            style={{ padding:8, marginLeft:10 }}
+          >
             {/* 취소버튼 <Text> */}
             <Text style={{ color:'dimgray', fontSize:16 }}>
               취소
@@ -29,7 +42,10 @@ export const ProfileEditModal = () => {
           </View>
 
           {/* 아이템 <TouchableOpacity> */}
-          <TouchableOpacity style={styles.confirm_button}>
+          <TouchableOpacity
+            onPress={onUpdateProfile}
+            style={styles.confirm_button}
+          >
             {/* 확인버튼 <Text> */}
             <Text style={{ color:'white', fontWeight:'bold', fontSize:16 }}>
               확인
@@ -43,7 +59,7 @@ export const ProfileEditModal = () => {
           <TouchableOpacity>
             {/* 아바타이미지 <Image> */}
             <Image
-              source={{uri:'https://firebasestorage.googleapis.com/v0/b/beme-twitter.appspot.com/o/profile-images%2FThumbnail64.jpg?alt=media&token=be4000fe-822e-4a6f-8ceb-a5b31da1ca9a'}}
+              source={{uri: props.myProfile.profileImage}}
               style={styles.image_ProfilePic}
             />
           </TouchableOpacity>
@@ -60,7 +76,11 @@ export const ProfileEditModal = () => {
             {/* 아이템 <View> */}
             <View style={{flexGrow:1}}>
               {/* 입력창 <TextInput> */}
-              <TextInput placeholder='트위터 대화명을 입력하세요.' />
+              <TextInput
+                value={nickname}
+                onChangeText={(text)=>{setNickname(text)}}
+                placeholder='트위터 대화명을 입력하세요.'
+              />
             </View>
           </View>
 
@@ -76,7 +96,11 @@ export const ProfileEditModal = () => {
             {/* 아이템 <View> */}
             <View style={{flexGrow:1}}>
               {/* 입력창 <TextInput> */}
-              <TextInput placeholder='이름을 입력하세요.' />
+              <TextInput
+                value={username}
+                onChangeText={(text)=>{setUsername(text)}}
+                placeholder='이름을 입력하세요.'
+              />
             </View>
           </View>
 

@@ -1,8 +1,65 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import axios from 'axios';
 
-export const AuthScreen = () => {
+import { SignInModal } from './SignInModal';
+import { SignUpModal } from './SignUpModal';
+
+export const AuthScreen = (props) => {
+  const [openSignInModal, setOpenSignInModal] = useState(false); //SignInModal 을 열고 닫기 위한 변수에요
+  const [openSignUpModal, setOpenSignUpModal] = useState(false); //SignUpModal 을 열고 닫기 위한 변수에요
+
+  const onOpenSignInModal = () => { //로그인 버튼을 누르면 호출되는 함수에요
+    setOpenSignInModal(true);
+  }
+  const onCloseSignInModal = () => {
+    setOpenSignInModal(false);
+  }
+  const onOpenSignUpModal = () => { //회원가입 버튼을 누르면 호출되는 함수에요
+    setOpenSignUpModal(true);
+  }
+  const onCloseSignUpModal = () => {
+    setOpenSignUpModal(false);
+  }
+
+  const onSignIn = async (email, password) => { //로그인 확인 시 호출될 함수에요
+    setOpenSignInModal(false); //우선 SignInModal을 닫습니다
+
+    const response = await axios.post( //API 요청을 전송합니다
+      'https://asia-northeast1-beme-twitter.cloudfunctions.net/login',
+      {
+        id: email,
+        password: password
+      }
+    );
+
+    if(response.data.success===true){ //만약 API 응답 중 "success"가 true라면(성공)
+      props.onAuthenticate(response.data.user); //부모(App.js)로부터 전달받은 onAuthenticated 함수(props)를 호출합니다
+    } else{ //만약 API 응답 중 "success"가 true가 아니라면(실패)
+      setOpenSignInModal(true); //SignInModal을 다시 엽니다
+    }
+  }
+
+  const onSignUp = async (email, password, nickname, username) => { //회원가입 확인 시 호출될 함수에요
+    setOpenSignUpModal(false); //우선 SignUpModal을 닫습니다
+
+    const response = await axios.post( //API 요청을 전송합니다
+      'https://asia-northeast1-beme-twitter.cloudfunctions.net/createUser',
+      {
+        id: email,
+        password: password,
+        nickname: nickname,
+        username: username
+      }
+    );
+
+    if(response.data.success===true){ //만약 API 응답 중 "success"가 true라면(성공)
+      props.onAuthenticate(response.data.user); //부모(App.js)로부터 전달받은 onAuthenticated 함수(props)를 호출합니다
+    } else{ //만약 API 응답 중 "success"가 true가 아니라면(실패)
+      setOpenSignUpModal(true); //SignUpModal을 다시 엽니다
+    }
+  }
+
   return (
     // 컨테이너 (세로방향) <View>
     <View style={styles.container}>
@@ -23,7 +80,10 @@ export const AuthScreen = () => {
 
 
       {/* 컨테이너 (가로방향) <TouchableOpacity> */}
-      <TouchableOpacity style={styles.signin_container}>
+      <TouchableOpacity
+        onPress={onOpenSignInModal}
+        style={styles.signin_container}
+      >
         {/* 아이템 <View> */}
         <View>
           {/* 이메일아이콘 <Image> */}
@@ -41,7 +101,10 @@ export const AuthScreen = () => {
 
 
       {/* 컨테이너 (가로방향) <TouchableOpacity> */}
-      <TouchableOpacity style={styles.signup_container}>
+      <TouchableOpacity
+        onPress={onOpenSignUpModal}
+        style={styles.signup_container}
+      >
         {/* 아이템 <View> */}
         <View>
           {/* "처음이신가요?" 글씨 <Text> */}
@@ -58,6 +121,9 @@ export const AuthScreen = () => {
           </Text>
         </View>
       </TouchableOpacity>
+
+      <SignInModal visible={openSignInModal} onSignIn={onSignIn} onClose={onCloseSignInModal} />
+      <SignUpModal visible={openSignUpModal} onSignUp={onSignUp} onClose={onCloseSignUpModal} />
     </View>
   );
 };

@@ -1,11 +1,21 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 import { StyleSheet, Modal, View, TouchableOpacity, Text, TextInput } from 'react-native';
 
-export const SignInModal = () => {
+export const SignInModal = (props) => {
+  const [email, setEmail] = useState(''); //이메일 문자열을 담을 변수
+  const [password, setPassword] = useState(''); //비밀번호 문자열을 담을 변수
+
+  const onSignIn = async () => {
+    props.onSignIn(email, password); //부모(AuthScreen)로부터 전달받은 onSignIn 함수(props)를 호출합니다
+  }
+
   return (
     // 모달 <Modal>
-    <Modal visible={true} animationType={'slide'} presentationStyle={'pageSheet'}>
+    <Modal
+      visible={props.visible} //부모(AuthScreen)로부터 전달받은 visible 값(props)을 대입합니다
+      animationType={'slide'}
+      presentationStyle={'pageSheet'}
+    >
 
       {/* 컨테이너 (세로방향) <View> */}
       <View style={styles.container_column}>
@@ -13,7 +23,10 @@ export const SignInModal = () => {
         {/* 컨테이너 (가로방향) <View> */}
         <View style={styles.container_row_menubar}>
           {/* 아이템 <TouchableOpacity> */}
-          <TouchableOpacity style={{ padding:8, marginLeft:10 }}>
+          <TouchableOpacity
+            onPress={props.onClose} //버튼을 누르면 부모(AuthScreen)로부터 전달받은 onClose 함수(props)를 호출합니다
+            style={{ padding:8, marginLeft:10 }}
+          >
             {/* 취소버튼 <Text> */}
             <Text style={{ color:'dimgray', fontSize:16 }}>
               취소
@@ -29,7 +42,10 @@ export const SignInModal = () => {
           </View>
 
           {/* 아이템 <TouchableOpacity> */}
-          <TouchableOpacity style={styles.confirm_button}>
+          <TouchableOpacity
+            onPress={onSignIn} //버튼을 누르면 onSignIn 함수를 호출합니다
+            style={styles.confirm_button}
+          >
             {/* 확인버튼 <Text> */}
             <Text style={{ color:'white', fontWeight:'bold', fontSize:16 }}>
               확인
@@ -54,7 +70,12 @@ export const SignInModal = () => {
             {/* 아이템 <View> */}
             <View style={{ flexGrow:1 }}>
               {/* 입력창 <TextInput> */}
-              <TextInput placeholder='이메일을 입력하세요.' keyboardType='email-address' />
+              <TextInput
+                value={email} //email 변수 값을 표시합니다
+                onChangeText={(text)=>{setEmail(text)}} //입력되는 값이 바뀌면, 그 값을 email 변수에 대입합니다
+                placeholder='이메일을 입력하세요.'
+                keyboardType='email-address'
+              />
             </View>
           </View>
 
@@ -71,7 +92,12 @@ export const SignInModal = () => {
             {/* 아이템 <View> */}
             <View style={{ flexGrow:1 }}>
               {/* 입력창 <TextInput> */}
-              <TextInput placeholder='비밀번호를 입력하세요.' secureTextEntry={true} />
+              <TextInput
+                value={password} //password 변수 값을 표시합니다
+                onChangeText={(text)=>{setPassword(text)}} //입력되는 값이 바뀌면, 그 값을 password 변수에 대입합니다
+                placeholder='비밀번호를 입력하세요.'
+                secureTextEntry={true}
+              />
             </View>
           </View>
         </View>

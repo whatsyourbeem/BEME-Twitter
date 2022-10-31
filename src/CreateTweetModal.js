@@ -1,11 +1,20 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 import { StyleSheet, Modal, View, TouchableOpacity, Text, TextInput, Image } from 'react-native';
 
-export const CreateTweetModal = () => {
+export const CreateTweetModal = (props) => {
+  const [contents, setContents] = useState(''); //작성할 트윗 내용을 담을 변수
+
+  const onCreateTweet = () => { //트윗 버튼 클릭 시 호출되는 함수에요
+    props.onCreate(contents); //부모로부터 전달받은 onCreate 함수(props)를 호출합니다
+  }
+
   return (
     // 모달 <Modal>
-    <Modal visible={true} animationType={'slide'} presentationStyle={'pageSheet'}>
+    <Modal
+      visible={props.visible} //부모(AuthScreen)로부터 전달받은 visible 값(props)을 대입합니다
+      animationType={'slide'}
+      presentationStyle={'pageSheet'}
+    >
 
       {/* 컨테이너 (세로방향) <View> */}
       <View style={styles.container_column}>
@@ -13,7 +22,10 @@ export const CreateTweetModal = () => {
         {/* 컨테이너 (가로방향,메뉴바) <View> */}
         <View style={styles.container_row_menubar}>
           {/* 아이템 <TouchableOpacity> */}
-          <TouchableOpacity style={{ padding:8, margin:10 }}>
+          <TouchableOpacity
+            onPress={props.onClose} //버튼을 누르면 부모로부터 전달받은 onClose 함수(props)를 호출합니다
+            style={{ padding:8, margin:10 }}
+          >
             {/* 취소버튼 <Text> */}
             <Text style={{ color:'dimgray', fontSize:16 }}>
               취소
@@ -21,7 +33,10 @@ export const CreateTweetModal = () => {
           </TouchableOpacity>
 
           {/* 아이템 <TouchableOpacity> */}
-          <TouchableOpacity style={styles.confirm_button}>
+          <TouchableOpacity
+            onPress={onCreateTweet}
+            style={styles.confirm_button}
+          >
             {/* 트윗버튼 <Text> */}
             <Text style={{ color:'white', fontWeight:'bold', fontSize:16 }}>
               트윗
@@ -36,7 +51,7 @@ export const CreateTweetModal = () => {
           <View style={{ marginLeft:20, marginRight:20 }}>
             {/* 아바타이미지 <Image> */}
             <Image
-              source={{uri:'https://firebasestorage.googleapis.com/v0/b/beme-twitter.appspot.com/o/profile-images%2FThumbnail64.jpg?alt=media&token=be4000fe-822e-4a6f-8ceb-a5b31da1ca9a'}}
+              source={{uri: props.myProfile.profileImage}}
               style={{ width:40, height:40, borderRadius:40,}}
             />
           </View>
@@ -45,6 +60,8 @@ export const CreateTweetModal = () => {
           <View style={{ flexGrow:1, marginRight:10 }}>
             {/* 내용입력 <TextInput> */}
             <TextInput
+              value={contents} //contents 변수 값을 표시합니다
+              onChangeText={(text)=>{setContents(text)}}  //입력되는 값이 바뀌면, 그 값을 contents 변수에 대입합니다
               multiline={true}
               textAlignVertical='top'
               placeholder='무슨 일이 일어나고 있나요?'

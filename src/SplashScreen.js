@@ -10,7 +10,7 @@ export const SplashScreen = () => {
       {/* 아이템 <View> */}
       <View style={{ margin:10 }}>
         {/* 로고이미지 <Image> */}
-        <Image source={require('./src/assets/logo_white.png')} style={styles.image_logo}/>
+        <Image source={require('./assets/logo_white.png')} style={styles.image_logo}/>
       </View>
 
       {/* 아이템 <View> */}

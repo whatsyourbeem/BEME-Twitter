@@ -1,11 +1,23 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 import { StyleSheet, Modal, View, TouchableOpacity, Text, TextInput } from 'react-native';
 
-export const SignUpModal = () => {
+export const SignUpModal = (props) => {
+  const [email, setEmail] = useState(''); //이메일 문자열을 담을 변수
+  const [password, setPassword] = useState(''); //비밀번호 문자열을 담을 변수
+  const [nickname, setNickname] = useState(''); //대화명 문자열을 담을 변수
+  const [username, setUsername] = useState(''); //이름 문자열을 담을 변수
+
+  const onSignUp = async () => {
+    props.onSignUp(email, password, nickname, username); //부모(AuthScreen)로부터 전달받은 onSignUp 함수(props)를 호출합니다
+  }
+
   return (
     // 모달 <Modal>
-    <Modal visible={true} animationType={'slide'} presentationStyle={'pageSheet'}>
+    <Modal
+      visible={props.visible} //props로 전달되는 visible 값을 대입합니다
+      animationType={'slide'}
+      presentationStyle={'pageSheet'}
+    >
 
       {/* 컨테이너 (세로방향) <View> */}
       <View style={styles.container_column}>
@@ -13,7 +25,10 @@ export const SignUpModal = () => {
         {/* 컨테이너 (가로방향) <View> */}
         <View style={styles.container_row_menubar}>
           {/* 아이템 <TouchableOpacity> */}
-          <TouchableOpacity style={{ padding:8, marginLeft:10 }}>
+          <TouchableOpacity
+            onPress={props.onClose} //버튼을 누르면 부모(AuthScreen)로부터 전달받은 onClose 함수(props)를 호출합니다
+            style={{ padding:8, marginLeft:10 }}
+          >
             {/* 취소버튼 <Text> */}
             <Text style={{ color:'dimgray', fontSize:16 }}>
               취소
@@ -29,7 +44,10 @@ export const SignUpModal = () => {
           </View>
 
           {/* 아이템 <TouchableOpacity> */}
-          <TouchableOpacity style={styles.confirm_button}>
+          <TouchableOpacity
+            onPress={onSignUp} //버튼을 누르면 onSignUp 함수를 호출합니다
+            style={styles.confirm_button}
+          >
             {/* 확인버튼 <Text> */}
             <Text style={{ color:'white', fontWeight:'bold', fontSize:16 }}>
               확인
@@ -53,7 +71,12 @@ export const SignUpModal = () => {
             {/* 아이템 <View> */}
             <View style={{ flexGrow:1 }}>
               {/* 입력창 <TextInput> */}
-              <TextInput placeholder='이메일을 입력하세요.' keyboardType='email-address' />
+              <TextInput
+                value={email} //email 변수 값을 표시합니다
+                onChangeText={(text)=>{setEmail(text)}} //입력되는 값이 바뀌면, 그 값을 email 변수에 대입합니다
+                placeholder='이메일을 입력하세요.'
+                keyboardType='email-address'
+              />
             </View>
           </View>
 
@@ -69,7 +92,12 @@ export const SignUpModal = () => {
             {/* 아이템 <View> */}
             <View style={{ flexGrow:1 }}>
               {/* 입력창 <TextInput> */}
-              <TextInput placeholder='비밀번호를 입력하세요.' secureTextEntry={true} />
+              <TextInput
+                value={password} //password 변수 값을 표시합니다
+                onChangeText={(text)=>{setPassword(text)}} //입력되는 값이 바뀌면, 그 값을 password 변수에 대입합니다
+                placeholder='비밀번호를 입력하세요.'
+                secureTextEntry={true}
+              />
             </View>
           </View>
 
@@ -85,7 +113,11 @@ export const SignUpModal = () => {
             {/* 아이템 <View> */}
             <View style={{ flexGrow:1 }}>
               {/* 입력창 <TextInput> */}
-              <TextInput placeholder='트위터 대화명을 입력하세요.' />
+              <TextInput
+                value={nickname} //nickname 변수 값을 표시합니다
+                onChangeText={(text)=>{setNickname(text)}} //입력되는 값이 바뀌면, 그 값을 nickname 변수에 대입합니다
+                placeholder='트위터 대화명을 입력하세요.'
+              />
             </View>
           </View>
 
@@ -101,7 +133,11 @@ export const SignUpModal = () => {
             {/* 아이템 <View> */}
             <View style={{ flexGrow:1 }}>
               {/* 입력창 <TextInput> */}
-              <TextInput placeholder='이름을 입력하세요.' />
+              <TextInput
+                value={username} //username 변수 값을 표시합니다
+                onChangeText={(text)=>{setUsername(text)}} //입력되는 값이 바뀌면, 그 값을 username 변수에 대입합니다
+                placeholder='이름을 입력하세요.'
+              />
             </View>
           </View>
           
